@@ -2,6 +2,14 @@ README
 ===========================
 该文件用来测试和展示书写README的各种markdown语法。GitHub的markdown语法在标准的markdown语法基础上做了扩充，称之为`GitHub Flavored Markdown`。简称`GFM`，GFM在GitHub上有广泛应用，除了README文件外，issues和wiki均支持markdown语法。
 
+****
+###　　　　　　　　　　　　Author:果冻虾仁
+###　　　　　　　　　 E-mail:Jelly.K.Wang@qq.com
+
+===========================
+
+
+
 ##目录
 * [横线](#横线)
 * [标题](#标题)
@@ -309,10 +317,10 @@ string &operator+(const string& A,const string& B) //cpp
 表情
 ----------
 Github的Markdown语法支持添加emoji表情，输入不同的符号码（两个冒号包围的字符）可以显示出不同的表情。
-Emoji表情
-=========
-将对应emoji表情的符号码复制后输入你的markdown文本即可显示emoji表情。
-如`:blush:`，显示为:blush:
+
+比如`:blush:`，可以显示:blush:。
+
+具体每一个表情的符号码，可以查询GitHub的官方网页[http://www.emoji-cheat-sheet.com](http://www.emoji-cheat-sheet.com)。
 
 ## 人物
 
