@@ -31,8 +31,8 @@
 	</style>
 </head>
 <body>
-	<div id="main" >
-	    <div class="tooltip" v-on:click.stop v-if="show_tooltip" v-cloak>
+	<div id="main"  v-cloak>
+	    <div class="tooltip" v-on:click.stop v-if="show_tooltip">
 	        <input type="text" v-model="text_content" v-on:blur="hideTooltip" autofocus="autofocus"/>
 	    </div>
 	    <p v-on:click.stop="toggleTooltip">{{text_content}}</p>
