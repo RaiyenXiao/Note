@@ -21,7 +21,7 @@ WebKit提供的一个扩展属性`-webkit-line-clamp`,它不是css规范中的�
 * -webkit-box-orient设置伸缩项的布局方向
 * text-overflow:ellipsis;表示超出盒子的部分使用省略号显示
 
-### 2.2 才用css规范中的属性实现多行文本省略号显示
+### 2.2 采用css规范中的属性实现多行文本省略号显示
 1. 当父包含框比较小时，将子元素布局到父包含框的右下角：
 ```
 <div class="wrap">
