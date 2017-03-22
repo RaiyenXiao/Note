@@ -82,7 +82,7 @@ WebKit提供的一个扩展属性`-webkit-line-clamp`,它不是css规范中的�
     background: #FAA; font-size: 13px; }
 ```
 这一步中，我们主要关心的是realend元素的定位，基于浮动后的end元素设置偏移量，当end元素浮动到第一节第二章图的位置时（即在prop元素的下方），此时realend元素正好处在end元素的上方50px，右侧300px-100px=200px处，而该位置正是父包含框wrap元素的右下角，此时正是我们期待的结果：
-![3](1/3.png)
+![3](1/3.png)<br/>
 若父元素并没有溢出，那么realend元素会出现在其右侧
 ![4](1/4.png)
 3. 优化定位模型
@@ -125,7 +125,7 @@ WebKit提供的一个扩展属性`-webkit-line-clamp`,它不是css规范中的�
 针对prop元素，缩小宽度为5px，其余属性不变；
 针对main元素，设置margin-left:5px，让main元素左移5px，这样main元素在宽度上就完全占满了父元素；
 对于realend元素，top、left和width的值不变。而设置margin-left: -100px、padding-right: 5px则是为了让realend元素的盒模型的最终宽度计算为5px。
-![5](1/5.png)
+![5](1/5.png)<br/>
 5. 流式布局+伪元素
 目前，realend元素的相关属性仍采用px度量，为了更好的扩展性，可以改用%替代。
 同时，prop元素和realend元素可以采用伪元素来实现，减少额外标签的使用。
