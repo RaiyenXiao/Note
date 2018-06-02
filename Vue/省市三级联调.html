@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+<div id="address">
+	<div class="province">
+		<select class="select" v-model="prov" @change="changeCity(prov)">
+			<option v-for="option in provinceList" :value="option.id">{{option.value}}</option>
+		</select>
+	</div>
+	<div class="city">
+		<select class="select" v-model="city" @change="changeCity(prov)">
+			<option v-for="option in cityArr" :value="option.id">{{option.value}}</option>
+		</select>
+	</div>
+	<div class="area">
+		<select class="select" v-model="area">
+			<option v-for="option in districtArr" :value="option.id">{{option.value}}</option>
+		</select>
+	</div>
+</div>
+</body>
+<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="vue-resource.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var VM = new Vue({
+    el: '#address',
+    data:function(){
+        return{
+            prov: '',           // 选择的省id
+            provName: '江苏',   // 默认江苏省
+            city: '',           // 选择的市id
+            cityName: '无锡',   // 默认无锡市
+            area: '',           // 选择的区
+            provinceList:[],
+            cityArr:[],
+            districtArr:[]
+        }
+    },
+    created:function(){
+        var _this=this
+        var url = 'json/address.json'
+        this.$http.get(url).then(function (res) {
+            _this.provinceList = res.body  
+            _this.cityArr = res.body[9].childs
+            _this.districtArr = res.body[9].childs[1].childs
+            _this.prov ='320000' // 默认地区代码 江苏省
+            _this.city ='320200' // 默认地区代码 无锡
+            _this.area ='320202' // 默认地区代码 崇安
+        })
+    },
+	// watch: {
+	// 	prov: function () {
+	// 		this.updateCity();
+	// 		this.updateDistrict();
+	// 	},
+	// 	city: function () {
+	// 		this.updateDistrict();
+	// 	}
+	// },
+    methods:{
+        // 省市联动
+        changeCity: function(id){
+            this.updateCity();
+            this.updateDistrict();
+        },
+        // 省市联动
+        changeArea: function(id){
+            this.updateDistrict();
+        },
+        updateCity: function () {
+			for (var i in this.provinceList) {
+				var obj = this.provinceList[i];
+				if (obj.id == this.prov) {
+					this.cityArr = obj.childs;
+                    this.provName = obj.value;
+					break;
+				}
+			}
+            this.city = this.cityArr[0].id;
+			this.cityName = this.cityArr[0].value;
+		},
+		updateDistrict: function () {
+			for (var i in this.cityArr) {
+				var obj = this.cityArr[i];
+				if (obj.id == this.city) {
+					this.districtArr = obj.childs;
+					break;
+				}
+			}
+			if(this.districtArr && this.districtArr.length > 0 && this.districtArr[1].id) {
+				this.area = this.districtArr[1].id;
+			} else {
+				this.area = '';
+			}
+		}
+    },
+})
+</script>
+</html>

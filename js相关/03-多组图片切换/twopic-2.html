@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/twopic.css" />
+	</head>
+	<body>
+		<div class="box">
+			<form class="btn">
+				<input type="button" value="上一组" id="last"/>
+				<input type="button" value="下一组" id="next"/>
+			</form>
+			<div class="picture clearfix">
+				<div class="first">
+					<img src="img/img1/belle.jpg" id="img1"/>
+					<p id="text1">第一组第<span></span>张</p>
+					<span id="num1"></span>
+					<div id="f-search1"></div>
+					<div id="f-search2"></div>
+				</div>
+				<div class="second">
+					<img src="img/img2/load.jpg" id="img2" />
+					<p id="text2">第二组第<span></span>张</p>
+					<span id="num2"></span>
+					<div id="s-search1"></div>
+					<div id="s-search2"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			//两组图片数组
+			var pic1 = ["img/img1/belle.jpg","img/img1/city.jpg","img/img1/flower.jpg","img/img1/rouse.jpg","img/img1/smail.jpg"];
+			var pic2 = ["img/img2/load.jpg","img/img2/pencil.jpg","img/img2/watch.jpg","img/img2/water.jpg",];
+			var n = 0;//第一组图片数字记录
+			var m = 0;//第二组图片数字记录
+			var limgL = document.getElementById("f-search1");//第一组左右按钮
+			var limgR = document.getElementById("f-search2");
+			var rimgL = document.getElementById("s-search1");//第二组左右按钮
+			var rimgR = document.getElementById("s-search2");
+			var text1 = document.getElementById("text1");
+			var text1Num = document.getElementsByTagName('span')[0];
+			var text2 = document.getElementById("text2");
+			var text2Num = document.getElementsByTagName('span')[0];
+			var num1 = document.getElementById("num1");
+			var num2 = document.getElementById("num2");
+			var img1 = document.getElementById("img1");
+			var img2 = document.getElementById("img2");
+			//双控制按钮
+			var next = document.getElementById("next");
+			var last = document.getElementById("last");
+			//初始化数组
+			tab(n,m);
+			function tab(n,m) {
+				//第一组
+				img1.src = pic1[n];
+				text1Num.innerHTML = n+1;
+				num1.innerHTML = n+1 + "/" + pic1.length;
+				//第二组
+				img2.src = pic2[m];
+				text2Num.innerHTML = m+1;
+				num2.innerHTML = m+1 + "/" + pic2.length;
+			}
+			limgR.onclick = function(){
+				n++;
+				if(n == pic1.length){
+					n = 0;
+				}
+				tab(n,m);
+			}
+			limgL.onclick = function(){
+				n--;
+				if(n == -1){
+					n = pic1.length-1;
+				}
+				tab(n,m);
+			}
+			rimgR.onclick = function(){
+				m++;
+				if(m == pic2.length){
+					m = 0;
+				}
+				tab(n,m);
+			}
+			rimgL.onclick = function(){
+				m--;
+				if(m == -1){
+					m = pic2.length-1;
+				}
+				tab(n,m);
+			}
+			next.onclick = function(){
+				n++;
+				if(n == pic1.length){
+					n = 0;
+				}
+				tab();
+				m++;
+				if(m == pic2.length){
+					m = 0;
+				}
+				tab(n,m);
+			}
+			last.onclick = function(){
+				n--;
+				if(n == -1){
+					n = pic1.length-1;
+				}
+				tab(n,m);
+				m--;
+				if(m == -1){
+					m = pic2.length-1;
+				}
+				tab(n,m);
+			}
+		</script>
+	</body>
+</html>

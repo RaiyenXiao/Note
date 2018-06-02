@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;box-sizing: border-box;}
+		ul,li{list-style: none;}
+.select {
+	float: left;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 325px;
+    color: #333;
+    vertical-align: middle;
+    text-align: left;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+.select .placeholder {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    z-index: 1;
+    padding: .5em;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.select .placeholder:after {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    margin-top: -9px;
+    content: '';
+    z-index: 10;
+    width: 10px;
+    height: 10px;
+    border: 3px solid #ddd;
+    border-bottom: #6495ED;
+    border-right: #6495ED;
+    transform:rotate(225deg);
+}
+.select.is-open ul {
+    display: block;
+}
+.select.select--white .placeholder {
+    background: #fff;
+    color: #999;
+}
+.select.select--white .placeholder:hover {
+    background: #fafafa;
+}
+.select ul {
+    /*display: none;*/
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    background: #fff;
+    border-radius: 2px;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+    border: 1px solid #ddd;
+    border-top: 0;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.select ul li {
+    display: block;
+    text-align: left;
+    padding: 0.8em 1em 0.8em 1em;
+    color: #999;
+    cursor: pointer;
+}
+.select ul li:hover {
+    background: #4ebbf0;
+    color: #fff;
+}
+	</style>
+</head>
+<body>
+	<div id="address">
+		<div class="province select">
+			<span class="placeholder" @click="showProvince">{{provName}}</span>
+			<ul v-show="provinceShow">
+				<li v-for="(prov,index) in provinceList" @click="getProvince(prov.id, prov.value)">{{prov.value}}</li>
+			</ul>
+		</div>
+		<div class="city select">
+			<span class="placeholder" @click="showCity">{{cityName}}</span>
+			<ul v-show="cityShow">
+				<li v-for="(city,index) in cityArr" @click="getCity(city.id, city.value)">{{city.value}}</li>
+			</ul>
+		</div>
+		<div class="area select">
+			<span class="placeholder" @click="showDistrict">{{areaName}}</span>
+			<ul v-show="districtShow">
+				<li v-for="(area,index) in districtArr"  @click="getArea(area.id, area.value)">{{area.value}}</li>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="vue-resource.min.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+	var VM = new Vue({
+    el: '#address',
+    data:function(){
+        return{
+        	provinceShow: false,
+      		cityShow: false,
+      		districtShow: false,
+            prov: '',           // 选择的省id
+            provName: '江苏省',   // 默认江苏省
+            city: '',           // 选择的市id
+            cityName: '无锡市',   // 默认无锡市
+            area: '', // 选择的区
+            areaName:'滨湖区',
+            provinceList:[],
+            cityArr:[],
+            districtArr:[]
+        }
+    },
+    created:function(){
+        var _this=this
+        var url = 'json/address.json'
+        axios(url).then(function(res){
+        	_this.provinceList = res.data        	
+            _this.cityArr = res.data[9].childs
+            _this.districtArr = res.data[9].childs[1].childs
+            _this.prov ='320000' // 默认地区代码 江苏省
+            _this.city ='320200' // 默认地区代码 无锡
+            _this.area ='320202' // 默认地区代码 崇安
+    	})
+//      this.$http.get(url).then(function (res) {
+//          _this.provinceList = res.body  
+//          _this.cityArr = res.body[9].childs
+//          _this.districtArr = res.body[9].childs[1].childs
+//          _this.prov ='320000' // 默认地区代码 江苏省
+//          _this.city ='320200' // 默认地区代码 无锡
+//          _this.area ='320202' // 默认地区代码 崇安
+//      })
+    },
+    methods:{
+    	showProvince:function(){
+			this.provinceShow = !(this.provinceShow )
+    	},
+    	showCity:function(){
+    		this.cityShow = !(this.cityShow )
+   		},
+    	showDistrict:function(){
+    		this.districtShow = !(this.districtShow )
+    	},
+		getProvince:function(id,value){
+			var _this=this
+			_this.prov=id
+			_this.provName=value
+			this.updateCity();
+	        this.updateDistrict();
+	        this.provinceShow = false
+		},
+		getCity:function(id,value){
+			var _this=this
+			_this.city=id
+			_this.cityName=value
+	        this.updateDistrict();
+	        this.cityShow = false
+		},
+		getArea:function(id,value){
+			var _this=this
+			_this.area=id
+			_this.areaName=value
+			this.districtShow = false
+		},
+        updateCity: function () {
+			for (var i in this.provinceList) {
+				var obj = this.provinceList[i];
+				if (obj.id == this.prov) {
+					this.cityArr = obj.childs;
+                    this.provName = obj.value;
+					break;
+				}
+			}
+            this.city = this.cityArr[0].id;
+			this.cityName = this.cityArr[0].value;
+		},
+		updateDistrict: function () {
+			for (var i in this.cityArr) {
+				var obj = this.cityArr[i];
+				if (obj.id == this.city) {
+					this.districtArr = obj.childs;
+					break;
+				}
+			}
+			if(this.districtArr && this.districtArr.length > 0 && this.districtArr[1].id) {
+				this.area = this.districtArr[0].id;
+				this.areaName = this.districtArr[0].value;
+			} else {
+				this.area = '';
+			}
+		}
+    },
+})
+</script>
+</html>
