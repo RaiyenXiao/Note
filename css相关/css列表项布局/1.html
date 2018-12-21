@@ -1,0 +1,49 @@
+<!-- 元素宽度已知，即知道每行最多多少个，且所有元素都在一个容器中 -->
+<!-- 
+    思路：item 在一个容器中，每第三个去掉 margin-right，最后三个取消 margin-bottom（如最后一行不满 3 个也不影响）
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>item 宽度一定，所有元素都在一个容器</title>
+      <style>
+    .container {
+      width: 430px;
+      padding: 10px;
+      margin: 150px auto;
+      border: 2px solid rgb(240, 103, 103);
+    }
+    .item {
+      display: inline-block;
+      width: 100px; /* 宽度一定 */
+      margin-right: 30px;
+      margin-bottom: 20px;
+      padding: 5px 10px;
+      font-size: 20px;
+      border-radius: 5px / 5px;
+      background: rgb(103, 164, 243);
+    }
+    .item:nth-child(3n) {
+      margin-right: 0;
+    }
+    .item:nth-last-child(-n+3) {
+      margin-bottom: 0;
+    }
+  </style>
+
+</head>
+<body>
+    <div class='container'>
+        <div class='item'>最多放三个</div>
+        <div class='item'>最多放三个</div>
+        <div class='item'>最多放三个</div>
+        <div class='item'>最多放三个</div>
+        <div class='item'>最多放三个</div>
+        <div class='item'>最多放三个</div>
+        <div class='item'>最多放三个</div>
+      </div>   
+</body>
+</html>
