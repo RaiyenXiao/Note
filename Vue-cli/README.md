@@ -46,4 +46,8 @@ new Vue({
 `npm run dev`( # serve with hot reload at localhost:8080)
 
 
+** 提示 **：
+推荐使用 `VS Code` 的插件：`Vue VSCode Snippets`。通过在页面上敲：`vbase`，就可以快速生成 `Vue-Cli` 的基础代码 
+
+
 
