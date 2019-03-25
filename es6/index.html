@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+var arrList=[1,2,3]
+let length = this.arrList.length
+//es5
+var arr=[]
+arrList.forEach(function(v,i){
+    arr.push('数据'+(1 + i + length))
+    console.log(arr); //  ["数据4", "数据5", "数据6"]
+});
+//es6
+var createData = function () {
+    return Array.from({ length: 3 }, (v, i) => `数据${1 + i + length}`)
+}
+createData()
+console.log(createData());// ["数据4", "数据5", "数据6"]
+</script>
+</html>
