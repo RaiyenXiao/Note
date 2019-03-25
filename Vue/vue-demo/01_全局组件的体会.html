@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../vue-demo/node_modules/vue/dist/vue.js"></script>
+    <script>
+        //注册公共全局组件
+        Vue.component('my-btn',{
+            template:'<button style="background-color:skyblue;">公共按钮组件</button>'
+        })
+
+        var MyHeader = {
+            template:`
+                <div>
+                    我是头部header组件
+                    <my-btn/>
+                </div>`
+        }
+        var MyFooter = Vue.extend({
+            template:`
+                <div>
+                    我是Footer组件
+                    <my-btn/>
+                </div>`
+        });
+        //入口组件
+        var App ={
+            components:{
+                "my-header":MyHeader,
+                "my-footer":MyFooter
+            },
+            template:`
+                <div>
+                   <my-header/>
+                   <my-footer/>
+                   <hr/>
+                   App入口组件使用全局组件如下
+                   <my-btn/>
+                </div>
+            `,
+        }
+        new Vue({
+            el:'#app',
+            components:{
+                app:App
+            },
+            template:'<app/>'
+        })
+    </script>
+</body>
+</html>

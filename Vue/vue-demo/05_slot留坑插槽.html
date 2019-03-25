@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            width: 600px;
+            height: 600px;
+            text-align: center;
+        }
+        li{
+            list-style: none;
+            float: left;
+            width:200px;
+            height: 200px;
+            background-color: seagreen;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            line-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../vue-demo/node_modules/vue/dist/vue.js"></script>
+    <script>
+        var MyLi={
+            template:`<li>
+                <slot></slot>
+            </li>`,
+            data:function(){
+                return{
+
+                }
+            }
+        }
+   
+        //入口组件  实现一个九宫格
+        var App ={
+            components:{
+                "my-li":MyLi,
+            },
+            template:`
+                <div>
+                    <ul>
+                        <my-li><h1>1</h1></my-li>
+                        <my-li>2</my-li>
+                        <my-li><h2>3</h2></my-li>
+                        <my-li>4</my-li>
+                        <my-li>5</my-li>
+                        <my-li>6</my-li>
+                        <my-li>7</my-li>
+                        <my-li>8</my-li>
+                        <my-li><h3>9</h3></my-li>
+                    </ul>
+                </div>
+            `
+        }
+        new Vue({
+            el:'#app',
+            components:{
+                app:App
+            },
+            template:'<app/>'
+        })
+    </script>
+</body>
+</html>

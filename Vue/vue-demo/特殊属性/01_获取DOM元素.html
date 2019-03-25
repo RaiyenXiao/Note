@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //1:在组件的DOM部分，任意的标签中 写上ref="XXX"
+        //2,通过组件对象this.$ref.xxx 获取到元素
+        var App ={
+            template:`
+                <div>
+                    <button ref="btn">我是按钮</button>
+                </div>
+            `,
+            beforeCreate:function(){
+                //这里不能操作数据 只是初始化了事件
+                console.log(this.$refs.btn);// undefined
+            },
+            created:function(){
+                //可以操作数据
+                console.log(this.$refs.btn);// undefined
+            },
+            beforeMount:function(){
+                //new Vue 发生装载 替换 <div id="app">之前
+                console.log(this.$refs.btn);// undefined
+            },
+            mounted:function(){
+                //装载数据之后
+                console.log(this.$refs.btn);//此处才能拿到
+            }
+        }
+        new Vue({
+            el:'#app',
+            components:{
+                app:App
+            },
+            template:'<app/>'
+        })
+    </script>
+</body>
+</html>

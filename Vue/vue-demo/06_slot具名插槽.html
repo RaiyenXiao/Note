@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../vue-demo/node_modules/vue/dist/vue.js"></script>
+    <script>
+        var MySlot={
+            template:`<div>
+                以下预留第一个坑
+                <slot name="one"></slot>
+                <div>
+                    <span>此div没有slot</span>
+                </div>
+                以下预留第二个坑
+                <slot name="two"></slot>
+            </div>`
+        }
+        Vue.component('my-slot',MySlot)
+        //入口组件  实现一个九宫格
+        var App ={
+            template:`
+                <div>
+                    <my-slot>
+                        <h1 slot="two">我是1，第一个坑</h1>
+                        
+                        <h2 slot="one">我是2，第2个坑</h2>
+                    </my-slot>
+                </div>
+            `
+        }
+        new Vue({
+            el:'#app',
+            components:{
+                app:App
+            },
+            template:'<app/>'
+        })
+    </script>
+</body>
+</html>

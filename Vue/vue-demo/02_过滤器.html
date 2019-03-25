@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../vue-demo/node_modules/vue/dist/vue.js"></script>
+    <script>
+        //过滤器可以给数据显示进行添油加醋
+        //需求：原本显示数据abc,。。。添油加醋后翻转成cba
+         //入口组件
+         var App ={
+            template:`
+                <div>
+                   <input type="text" v-model="myText">
+                   输出{{myText|reverse}}
+                   <hr/>
+                   <input type="text" v-model="myVal">
+                   全局{{myVal|capitalize}}
+                </div>
+            `,
+            data:function () {
+                return{
+                    myText:'',
+                    myVal:'',
+                }
+            },
+            //组件内的过滤器
+            filters:{
+                reverse:function(dataStr){
+                    return dataStr.split('').reverse().join('');
+                }
+            }
+        }
+        //全局过滤器
+        Vue.filter('capitalize', function (value) {
+            if (!value) return ''
+            value = value.toString()
+            return value.charAt(0).toUpperCase() + value.slice(1)
+        })
+        new Vue({
+            el:'#app',
+            components:{
+                app:App
+            },
+            template:'<app/>'
+        })
+    </script>
+</body>
+</html>
