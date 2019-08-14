@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       function buildUrl(){
+           var qs = "?debug=true";
+           with(location){ //将给定的表达式添加到在评估语句时使用的作用域链上。表达式周围的括号是必需的。
+               var url = href+qs;
+           }
+           return url;
+       }
+       console.log(buildUrl())
+    </script>
+</body>
+</html>

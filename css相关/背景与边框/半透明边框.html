@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>半透明边框</title>
+	<style type="text/css">
+		body{
+			background-color: #efefef;
+		}
+		div{
+			background-color: #fff;
+			width: 200px;
+			height: 200px;
+			border: 10px solid hsla(0,0%,100%,.5);
+		}
+		/*发现无法实现半透明的边框效果*/
+		/*原因：默认情况下，背景会延伸到边框所在的区域下层。我们所做的事情并没有让body的背景从半透明白色边框处透上来，而是在半透明白色边框处透出了这个容器自己的纯白色背景*/
+		/*解决：*/
+		div{
+			background-color: #fff;
+			width: 200px;
+			height: 200px;
+			border: 10px solid hsla(0,0%,100%,.5);
+			background-clip: padding-box;
+		}
+	</style>
+</head>
+<body>
+	<div>半透明</div>
+</body>
+</html>

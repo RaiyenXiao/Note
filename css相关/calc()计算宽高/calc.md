@@ -5,6 +5,23 @@
 3.可以混合使用各种单位进行计算；
 4.表达式中有“+”和“-”时，其前后必须要有空格，如"widht: calc(12%+5em)"这种没有空格的写法是错误的；
 5.表达式中有“*”和“/”时，其前后可以没有空格，但建议留有空格。
+6.兼容性: IE8-、safari5.1-、ios5.1-、android4.3-不支持，android4.4-4.4.4只支持加法和减法。IE9不支持用于backround-position
+
+```
+<style>
+.test1{
+    border: calc( 1px + 1px ) solid black;
+    /* calc里面的运算遵循*、/优先于+、-的顺序 */
+    width: calc(100%/3 - 2*1em - 2*1px);
+}
+.test2{
+    /* 由于运算符+的左右两侧没有空白符，所以失效 */
+    border: calc(1px+1px) solid black;
+    /* 对于，不能小于0的属性值，当运算结果小于0时，按0处理 */
+    width: calc(10px - 20px);
+}
+</style>
+```
 
 ### vw和vh是什么？
 vm、vh、vmin、vmax是一种视窗单位，也是相对单位。它相对的不是父节点或者页面的根节点。而是由视窗（Viewport）大小来决定的，单位 1，代表类似于 1%。

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body {
+        position: relative;
+        margin: 0;
+    }
+    .indicator {
+        position: absolute;
+        top: 0; right: 0; left: 0; bottom: 0;
+        /* background: linear-gradient(to right top, teal 50%, transparent 50%) no-repeat;
+        background-size: 100% calc(100% - 100vh); */
+        background: linear-gradient(to right top, teal 50%, transparent 50%) no-repeat -15px 0;
+        background-size: calc(100% + 20px) calc(100% - 100vh + 5px);
+        z-index: 1;
+        pointer-events: none;
+        mix-blend-mode: darken;
+    }
+    .indicator::after {
+        content: '';
+        position: fixed;
+        top: 5px; bottom: 0; right: 0; left: 0;
+        background: #fff;
+        z-index: 1;
+    }
+    </style>
+</head>
+<body>
+    <!-- 在<body>标签内插入指示器元素 -->
+    <div class="indicator"></div>
+    <div style="height: 1500px; text-align: center;">用来撑开页面高度</div>
+</body>
+</html>
+
+<!-- 混合模式 -->
+<!-- 
+mix-blend-mode: normal;          //正常
+mix-blend-mode: multiply;        //正片叠底
+mix-blend-mode: screen;          //滤色
+mix-blend-mode: overlay;         //叠加
+mix-blend-mode: darken;          //变暗
+mix-blend-mode: lighten;         //变亮
+mix-blend-mode: color-dodge;     //颜色减淡
+mix-blend-mode: color-burn;      //颜色加深
+mix-blend-mode: hard-light;      //强光
+mix-blend-mode: soft-light;      //柔光
+mix-blend-mode: difference;      //差值
+mix-blend-mode: exclusion;       //排除
+mix-blend-mode: hue;             //色相
+mix-blend-mode: saturation;      //饱和度
+mix-blend-mode: color;           //颜色
+mix-blend-mode: luminosity;      //亮度
+
+mix-blend-mode: initial;         //初始
+mix-blend-mode: inherit;         //继承
+mix-blend-mode: unset;           //复原
+ -->
